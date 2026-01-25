@@ -34,20 +34,49 @@
 </head>
 
 <body>
-    <div>
-        <p id="msg" style="color: hsla(338, 74%, 41%, 1.00) ;font-style: italic;font-size: larger;"></p>
+    <div id="start-quiz">
+        <div>
+            <p id="msg" style="color: hsla(338, 74%, 41%, 1.00) ;font-style: italic;font-size: larger;"></p>
+        </div>
+        <form>
+            <label for="name">Name</label>
+            <input type="text" id="name" value=""><br><br>
+
+            <label for="num">Phone_number</label>
+            <input type="number" id="num" value=""><br><br>
+
+            <label for="start"></label>
+            <input type="button" value="startquiz" onclick="startquiz()">
+
+        </form>
     </div>
-    <form>
-        <label for="name">Name</label>
-        <input type="text" id="name" value=""><br><br>
+    <div id="quiz-question" style="display: none;">
+        <p id="question"></p>
 
-        <label for="num">Phone_number</label>
-        <input type="number" id="num" value=""><br><br>
+        <div id="options">
+            <label>
+                <input type="radio" name="answer" value="A">
+                <span id="optA"></span>
+            </label><br>
 
-        <label for="start"></label>
-        <input type="button" value="startquiz" onclick="startquiz()">
+            <label>
+                <input type="radio" name="answer" value="B">
+                <span id="optB"></span>
+            </label><br>
 
-    </form>
+            <label>
+                <input type="radio" name="answer" value="C">
+                <span id="optC"></span>
+            </label><br>
+
+            <label>
+                <input type="radio" name="answer" value="D">
+                <span id="optD"></span>
+            </label>
+        </div>
+        <input type="button" value="Next" onclick="NextQuestion()" />
+    </div>
+
 
 
 </body>
