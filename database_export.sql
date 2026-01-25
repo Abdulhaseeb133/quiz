@@ -19,6 +19,11 @@
 -- Table structure for table `quiz_question`
 --
 
+CREATE DATABASE quiz_db;
+USE quiz_db;
+SOURCE quiz_db.sql;
+
+
 DROP TABLE IF EXISTS `quiz_question`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
