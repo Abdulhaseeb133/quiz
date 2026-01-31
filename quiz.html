@@ -1,96 +1,83 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-
-    <style>
-        body {
-            font-size: x-large;
-            font-style: oblique;
-            font-family: 'Times New Roman', Times, serif;
-            color: rgb(55, 131, 169);
-            background-color: rgb(35, 34, 33);
-        }
-
-        th,
-        td {
-            border: 3px solid rgb(10, 10, 10);
-            padding: 10px;
-            margin: 20px;
-        }
-
-        .current-page {
-            background-color: aqua;
-
-        }
-
-        .style {
-            width: 30px;
-            height: 30px;
-            margin-right: 10px;
-            padding: 10px;
-        }
-
-        #timer {
-            font-size: xx-large;
-            font-weight: bold;
-            text-align: center;
-            margin: 20px 0;
-            display: block;
-
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Application</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <div id="timer">Time Left: 30s</div>
-    <div id="start-quiz">
+    <div class="quiz-container">
+        <!-- Timer -->
+        <div id="timer">Time Left: 30s</div>
 
-        <div>
-            <p id="msg" style="color: hsla(338, 74%, 41%, 1.00) ;font-style: italic;font-size: larger;"></p>
+        <!-- Progress Bar -->
+        <div class="progress-container" id="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+            <p class="progress-text" id="progress-text">Question 1 of 10</p>
         </div>
-        <form>
-            <label for="name">Name</label>
-            <input type="text" id="name" value=""><br><br>
 
-            <label for="num">Phone_number</label>
-            <input type="number" id="num" value=""><br><br>
+        <!-- Start Quiz Section -->
+        <div id="start-quiz">
+            <h1>🎯 Quiz Challenge</h1>
+            <p id="msg"></p>
+            <form>
+                <div>
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" placeholder="Enter your name" required>
+                </div>
 
-            <label for="start"></label>
-            <input type="button" value="startquiz" onclick="startquiz()">
+                <div>
+                    <label for="num">Phone Number</label>
+                    <input type="number" id="num" placeholder="Enter your phone number">
+                </div>
 
-        </form>
-    </div>
-    <div id="quiz-question" style="display: none;">
-        <p id="question"></p>
-
-        <div id="options">
-            <label>
-                <input type="radio" name="answer" value="A">
-                <span id="optA"></span>
-            </label><br>
-
-            <label>
-                <input type="radio" name="answer" value="B">
-                <span id="optB"></span>
-            </label><br>
-
-            <label>
-                <input type="radio" name="answer" value="C">
-                <span id="optC"></span>
-            </label><br>
-
-            <label>
-                <input type="radio" name="answer" value="D">
-                <span id="optD"></span>
-            </label>
+                <input type="button" value="Start Quiz" onclick="startquiz()">
+            </form>
         </div>
-        <input type="button" value="Next" onclick="NextQuestion()" />
+
+        <!-- Quiz Question Section -->
+        <div id="quiz-question">
+            <p id="question"></p>
+
+            <div id="options">
+                <label>
+                    <input type="radio" name="answer" value="A">
+                    <span id="optA"></span>
+                </label>
+
+                <label>
+                    <input type="radio" name="answer" value="B">
+                    <span id="optB"></span>
+                </label>
+
+                <label>
+                    <input type="radio" name="answer" value="C">
+                    <span id="optC"></span>
+                </label>
+
+                <label>
+                    <input type="radio" name="answer" value="D">
+                    <span id="optD"></span>
+                </label>
+            </div>
+            <input type="button" value="Next Question →" onclick="NextQuestion()" />
+        </div>
+
+        <!-- Result Section -->
+        <div id="result">
+            <h1>🏆 Quiz Completed!</h1>
+            <h2>Your Score</h2>
+            <div class="score-display" id="final-score">0/0</div>
+            <h2>Percentage: <span id="percentage">0</span>%</h2>
+            <p class="message" id="result-message"></p>
+            <button class="btn" onclick="location.reload()">🔄 Restart Quiz</button>
+        </div>
     </div>
 
-
-
+    <script src="quiz.js"></script>
 </body>
-<script src="quiz.js"></script>
 
 </html>

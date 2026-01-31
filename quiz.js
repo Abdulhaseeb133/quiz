@@ -55,6 +55,9 @@ function GetQuestions() {
             questions = JSON.parse(result);
             document.getElementById("quiz-question").style.display = "block";
             document.getElementById("start-quiz").style.display = "none";
+            document.getElementById("timer").style.display = "block";
+            document.getElementById("progress-container").style.display = "block";
+            updateProgressBar();
             ShowNextQuestion();
             startTimer();
         })
@@ -93,20 +96,34 @@ function NextQuestion() {
     timeLeft = 30;
     startTimer();
 
+    updateProgressBar();
     ShowNextQuestion();
+}
+
+function updateProgressBar() {
+    const progress = ((index + 1) / questions.length) * 100;
+    document.getElementById("progress-bar").style.width = progress + "%";
+    document.getElementById("progress-text").innerText = `Question ${index + 1} of ${questions.length}`;
 }
 
 // ...existing code...
 
 function startTimer() {
+    const timerElement = document.getElementById("timer");
+    timerElement.classList.remove("warning");
+
     timer = setInterval(() => {
         timeLeft--;
-        document.getElementById("timer").innerText = `Time Left: ${timeLeft}s`;
+        timerElement.innerText = `Time Left: ${timeLeft}s`;
+
+        // Add warning class when time is low
+        if (timeLeft <= 10) {
+            timerElement.classList.add("warning");
+        }
 
         if (timeLeft <= 0) {
             clearInterval(timer);
             timeUp();
-            // This already calls NextQuestion(), so remove the duplicate below
         }
     }, 1000);
 }
@@ -131,27 +148,28 @@ function endQuiz() {
     // Stop the timer
     clearInterval(timer);
 
-    // Hide quiz questions
+    // Hide quiz questions, timer, and progress bar
     document.getElementById("quiz-question").style.display = "none";
     document.getElementById("timer").style.display = "none";
+    document.getElementById("progress-container").style.display = "none";
 
-    // Show result
+    // Show result section
+    document.getElementById("result").style.display = "block";
+
+    // Calculate and display score
     const percentage = (score / questions.length) * 100;
-    const resultHTML = `
-        <div style="text-align: center; margin-top: 50px;">
-            <h1>Quiz Completed!</h1>
-            <h2>Your Score: ${score} / ${questions.length}</h2>
-            <h2>Percentage: ${percentage.toFixed(2)}%</h2>
-            <p style="font-size: xx-large; margin-top: 30px;">
-                ${percentage >= 70 ? '🎉 Congratulations! You Passed!' : '😔 Keep Learning!'}
-            </p>
-            <button onclick="location.reload()" style="margin-top: 30px; padding: 15px 30px; font-size: large; cursor: pointer;">
-                Restart Quiz
-            </button>
-        </div>
-    `;
+    document.getElementById("final-score").innerText = `${score}/${questions.length}`;
+    document.getElementById("percentage").innerText = percentage.toFixed(1);
 
-    document.body.innerHTML += resultHTML;
+    // Show message based on score
+    const messageElement = document.getElementById("result-message");
+    if (percentage >= 70) {
+        messageElement.innerText = "🎉 Congratulations! You Passed!";
+        messageElement.className = "message pass";
+    } else {
+        messageElement.innerText = "😔 Keep Learning! You can do better!";
+        messageElement.className = "message fail";
+    }
 }
 
 // ...existing code...
